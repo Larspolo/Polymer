@@ -1,13 +1,9 @@
 package model;
 
 public class Student {
-    private String gebruikersNaam;
-    private String wachtwoord;
-    private String voornaam;
-    private String tussenvoegsel;
-    private String beschrijving;
-    private int studentNr;
     private static boolean ziek = false;
+    private String gebruikersNaam, wachtwoord, voornaam, tussenvoegsel, beschrijving;
+    private int studentNr;
     private Klas mijnKlas;
 
     public Student(String gbNm, String ww, String vn, String tvgsl, int snr, boolean zk) {
@@ -19,20 +15,20 @@ public class Student {
         ziek = zk;
     }
 
-    public String getGebruikersNaam() {
-        return gebruikersNaam;
-    }
-
     public getWachtwoord() {
         return wachtwoord;
     }
 
-    public void setWachtwoord(String w) {
-        wachtwoord = w;
-    }
-
     public getStudentNr() {
         return studentNr;
+    }
+
+    public String getGebruikersNaam() {
+        return gebruikersNaam;
+    }
+
+    public void setWachtwoord(String w) {
+        wachtwoord = w;
     }
 
     public void toevoegenAfwezigheid(String bScVng) {
@@ -47,11 +43,11 @@ public class Student {
         return ww.equals(wachtwoord);
     }
 
-    public void setMijnKlas(Klas k) {
-        mijnKlas = k;
-    }
-
     public Klas getMijnKlas() {
         return mijnKlas;
+    }
+
+    public void setMijnKlas(Klas k) {
+        mijnKlas = k;
     }
 }
