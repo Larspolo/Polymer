@@ -14,7 +14,7 @@ public class Opleiding{
         }
 
         public void toevoegenKlas(Klas mK){
-            mijnKlas = mk;
+            mijnKlas = mK;
         }
 
     }
