@@ -15,11 +15,11 @@ public class Student {
         ziek = zk;
     }
 
-    public getWachtwoord() {
+    public String getWachtwoord() {
         return wachtwoord;
     }
 
-    public getStudentNr() {
+    public int getStudentNr() {
         return studentNr;
     }
 
