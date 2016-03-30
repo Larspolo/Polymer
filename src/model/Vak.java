@@ -1,6 +1,8 @@
 package model;
 
-public class Vak {
+import java.io.Serializable;
+
+public class Vak implements Serializable {
 	public String vakCode;
 	public String vakNaam;
 	
@@ -15,5 +17,9 @@ public class Vak {
 	
 	public String getVakCode() {
 		return vakCode;
+	}
+	
+	public String toString() {
+		return vakNaam;
 	}
 }
