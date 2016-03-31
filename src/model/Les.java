@@ -1,26 +1,31 @@
 package model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Les {
-	private Date datum;
-	private Date beginTijd;
-	private Date eindTijd;
-	private String docent;
-	private String lokaal;
-	private String lesCode;
-	private String klasCode;
-	private ArrayList afwezigeStudenten;
+public class Les implements Serializable {
+	private LocalDateTime begintijd;
+	private LocalDateTime eindtijd;
+	private ArrayList<Student> afwezigen;
 	
-	public Les(Date dT, Date bT, Date eT, String d, String lok, String les, String klas ){
-		datum = dT;
-		beginTijd = bT;
-		eindTijd = eT;
-		docent = d;
-		lokaal = lok;
-		lesCode = les;
-		klasCode = klas;
+	public Les() {
+		this(LocalDateTime.now(),LocalDateTime.now().plusHours(1));
 	}
 	
+	public Les(LocalDateTime bt, LocalDateTime et) {
+		begintijd = bt;
+		eindtijd = et;
+	}
+	
+	public void setAfwezige(Student student) {
+		if(!afwezigen.contains(student)) {
+			afwezigen.add(student);
+		}
+	}
+	
+	public String toString() {
+		return begintijd.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " om " + begintijd.format(DateTimeFormatter.ofPattern("HH:mm")) + " tot " + eindtijd.format(DateTimeFormatter.ofPattern("HH:mm"));
+	}
 }

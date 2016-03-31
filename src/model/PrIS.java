@@ -1,10 +1,16 @@
 package model;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
 	private ArrayList<Student> deStudenten;
+	private int session = 0;
+	private ArrayList<Klas> deKlassen;
+	private ArrayList<Les> deLessen;
 	
 	/**
 	 * De constructor maakt een set met standaard-data aan. Deze data
@@ -27,68 +33,84 @@ public class PrIS {
 	 * dat kan 'student', 'docent' of 'undefined' zijn! Die informatie kan gebruikt 
 	 * worden om in de Polymer-GUI te bepalen wat het volgende scherm is dat getoond 
 	 * moet worden.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public PrIS() {
+	public PrIS() throws IOException, ClassNotFoundException {
 		deDocenten = new ArrayList<Docent>();
 		deStudenten = new ArrayList<Student>();
+		deKlassen = new ArrayList<Klas>();
+		deLessen = new ArrayList<Les>();
+		
+		
+		Les l1 = new Les(LocalDateTime.now(), LocalDateTime.now().plusHours(1));
+		Les l2 = new Les(LocalDateTime.now().plusHours(2), LocalDateTime.now().plusHours(3));
+		deLessen.add(l1);
+		deLessen.add(l2);
+		DB.writeFile(deLessen,"lessen.csv");
+
+		Klas k1 = new Klas("SIE-V1D");
+		k1.addLes(l1);
+		k1.addLes(l2);
+		deKlassen.add(k1);
+		DB.writeFile(deKlassen,"klassen.csv");
 		
 		Docent d1 = new Docent("Wim", "geheim");
 		Docent d2 = new Docent("Hans", "geheim");
 		Docent d3 = new Docent("Jan", "geheim");
-		
-		d1.voegVakToe(new Vak("TCIF-V1AUI-15", "Analyse en User Interfaces"));
-		d1.voegVakToe(new Vak("TICT-V1GP-15", "Group Project"));
-		d1.voegVakToe(new Vak("TICT-V1OODC-15", "Object Oriented Design & Construction"));
-		
 		deDocenten.add(d1);
 		deDocenten.add(d2);
 		deDocenten.add(d3);
+		d1.voegVakToe(new Vak("TCIF-V1AUI-15", "Analyse en User Interfaces"));
+		d1.voegVakToe(new Vak("TICT-V1GP-15", "Group Project"));
+		d1.voegVakToe(new Vak("TICT-V1OODC-15", "Object Oriented Design & Construction"));
+		DB.writeFile(deDocenten,"docenten.csv");
 		
-		Student s1 = new Student("Roel", "geheim");
-		Student s2 = new Student("Frans", "geheim");
-		Student s3 = new Student("Daphne", "geheim");
-		Student s4 = new Student("Jeroen", "geheim");
-		
-		Klas k1 = new Klas("SIE-V1X");
-		
-		s1.setMijnKlas(k1);
-		s2.setMijnKlas(k1);
-		s3.setMijnKlas(k1);
-		s4.setMijnKlas(k1);
-		
+		Student s1 = new Student(1677500, "Lars", "van", "Hijfte", "pro?");
+		Student s2 = new Student(1234567, "Jari", "van den", "Brink", "jup!");
 		deStudenten.add(s1);
 		deStudenten.add(s2);
-		deStudenten.add(s3);
-		deStudenten.add(s4);
+		DB.writeFile(deStudenten,"studenten.csv");
+
+		deDocenten = DB.loadFile("docenten.csv");
+		deStudenten = DB.loadFile("studenten.csv");
+		
+		deStudenten.get(1).wijzigWachtwoord("Pa$$" + (int)(Math.random()*1000));
+		deStudenten.get(0).setMijnKlas(deKlassen.get(0));
+		
+		DB.writeFile(deStudenten,"students.csv");
+		DB.writeFile(deDocenten,"docenten.csv");
+		
 	}
 	
 	
-	public String login(String gebruikersnaam, String wachtwoord) {
+	public String login(int code, String wachtwoord) {
 		for (Docent d : deDocenten) {
-			if (d.getGebruikersNaam().equals(gebruikersnaam)) {
+			if (d.getGebruikersNaam().equals(code)) {
 				if (d.controleerWachtwoord(wachtwoord)) {
+					session =  code;
 					return "docent";
 				}
 			}
 		}
 		
 		for (Student s : deStudenten) {
-			if (s.getGebruikersNaam().equals(gebruikersnaam)) {
+			if (s.getStudentCode() == code) {
 				if (s.controleerWachtwoord(wachtwoord)) {
+					session = code;
 					return "student";
 				}
 			}
 		}
-		
-		return "undefined";
+		return "invalid";
 	}
 	
-	public Docent getDocent(String gebruikersnaam) {
+	public Docent getDocent(String studentCode) {
 		Docent resultaat = null;
 		
 		for (Docent d : deDocenten) {
-			if (d.getGebruikersNaam().equals(gebruikersnaam)) {
+			if (d.getGebruikersNaam().equals(studentCode)) {
 				resultaat = d;
 				break;
 			}
@@ -97,11 +119,11 @@ public class PrIS {
 		return resultaat;
 	}
 	
-	public Student getStudent(String gebruikersnaam) {
+	public Student getStudent(int studentCode) {
 		Student resultaat = null;
 		
 		for (Student s : deStudenten) {
-			if (s.getGebruikersNaam().equals(gebruikersnaam)) {
+			if (s.getStudentCode() == studentCode) {
 				resultaat = s;
 				break;
 			}
@@ -120,5 +142,26 @@ public class PrIS {
 		}
 		
 		return resultaat;
+	}
+	
+	public String toString() {
+		String s = "";
+		
+		s += "Studenten:\n";
+		for(Student st : deStudenten) {
+			s += "\t" + st;
+		}
+		
+		s += "\nDocenten:\n";
+		for(Docent d : deDocenten) {
+			s += "\t" + d;
+		}
+		
+		s += "\nKlassen:\n";
+		for(Klas k : deKlassen) {
+			s += "\t" + k;
+		}
+		
+		return s;
 	}
 }
