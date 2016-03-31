@@ -1,5 +1,6 @@
 package model;
 
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -30,7 +32,16 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 
 		FlowPane rootMenu = new FlowPane();
 		rootMenu.setPadding(new Insets(10, 10, 10, 10));
-		Scene menu = new Scene(rootMenu, 500, 200);
+		Scene menu = new Scene(rootMenu, 360, 200);
+		
+		FlowPane rootAfwezigheid = new FlowPane();
+		rootAfwezigheid.setPadding(new Insets(10, 10, 10, 10));
+		Scene afwezigheid = new Scene(rootAfwezigheid, 360, 200);
+		
+
+		FlowPane rootWachtwoord = new FlowPane();
+		rootWachtwoord.setPadding(new Insets(10, 10, 10, 10));
+		Scene wachtwoord = new Scene(rootWachtwoord, 360, 200);
 		
 
 		/* Scene inloggen */
@@ -86,22 +97,25 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 		
 		/* Scene menu */
 		
-		Button btnAfwezigMelden = new Button("Afwezigheid");
-		btnAfwezigMelden.setOnAction(new EventHandler<ActionEvent>() {
+		Button btnAfwezigheid = new Button("Afwezigheid");
+		btnAfwezigheid.setPrefWidth(330.0);
+		btnAfwezigheid.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-			
+				primaryStage.setScene(afwezigheid);
 			}
 		});
 		
-		Button btnWachtwoordWijzigen= new Button("Wachtwoord wijzigen");
+		Button btnWachtwoordWijzigen = new Button("Wachtwoord wijzigen");
+		btnWachtwoordWijzigen.setPrefWidth(330.0);
 		btnWachtwoordWijzigen.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-			
+				primaryStage.setScene(wachtwoord);
 			}
 		});	
 		
 
 		Button btnAfmelden = new Button("Afmelden");
+		btnAfmelden.setPrefWidth(330.0);
 		btnAfmelden.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				gebruiker = "";
@@ -109,11 +123,91 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 			}
 		});	
 		
-		rootMenu.getChildren().addAll(lbGebruiker, btnAfwezigMelden, btnWachtwoordWijzigen, btnAfmelden);
+		rootMenu.getChildren().addAll(lbGebruiker, btnAfwezigheid, btnWachtwoordWijzigen, btnAfmelden);
 		rootMenu.setVgap(10.0);
 		
 		
 		/* Afwezig melden */
+		Label lbTitel2 = new Label(" Afwezigheid");
+		lbTitel2.setPrefWidth(280.0);
+
+		Label lbLes = new Label("Les: ");
+		lbLes.setPrefWidth(140.0);
+		
+		Label lbMelding1 = new Label("");
+
+		ComboBox cbLessen = new ComboBox();
+		cbLessen.getItems().addAll("Alle lessen");
+		cbLessen.setPrefWidth(185.00); 
+		
+		
+		Button btnTerug = new Button("<-");
+		btnTerug.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				primaryStage.setScene(menu);
+			}
+		});
+		
+		Button btnAfwezigMelden = new Button("Afwezig melden");
+		btnAfwezigMelden.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				lbMelding1.setText("Succesvol gemeld");
+			}
+		});
+		
+
+		HBox hbox1 = new HBox();
+		hbox1.setPrefWidth(330.0);
+		hbox1.setSpacing(10.0);
+		hbox1.setAlignment(Pos.CENTER_RIGHT);
+		hbox1.getChildren().addAll(lbMelding1, btnAfwezigMelden);
+		
+
+		rootAfwezigheid.getChildren().addAll(btnTerug, lbTitel2, lbLes, cbLessen);
+		rootAfwezigheid.getChildren().add(hbox1);
+		rootAfwezigheid.setVgap(10.0);
+		
+		/* Wachtwoord wijzigen */
+		Label lbTitel3 = new Label(" Nieuw wachtwoord");
+		lbTitel3.setPrefWidth(280.0);
+
+		Label lbNieuwWachtwoord = new Label("Nieuw wachtwoord: ");
+		lbNieuwWachtwoord.setPrefWidth(140.0);
+		
+		TextField tfNieuwWachtwoord = new TextField();
+		tfNieuwWachtwoord.setPrefWidth(180.0);
+		
+		Label lbMelding2 = new Label("");
+		
+		
+		Button btnTerug2 = new Button("<-");
+		btnTerug2.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				primaryStage.setScene(menu);
+			}
+		});
+		
+		Button btnOpslaan = new Button("Opslaan");
+		btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				lbMelding2.setText("wachtwoord gewijzigd!");
+				tfNieuwWachtwoord.setText("");
+			}
+		});
+		
+
+		HBox hbox2 = new HBox();
+		hbox2.setPrefWidth(330.0);
+		hbox2.setSpacing(10.0);
+		hbox2.setAlignment(Pos.CENTER_RIGHT);
+		hbox2.getChildren().addAll(lbMelding2, btnOpslaan);
+		
+
+		rootWachtwoord.getChildren().addAll(btnTerug2, lbTitel3, lbNieuwWachtwoord, tfNieuwWachtwoord);
+		rootWachtwoord.getChildren().add(hbox2);
+		rootWachtwoord.setVgap(10.0);
+		
+		
 		
 		primaryStage.setTitle("Inloggen Student");
 		primaryStage.setScene(inloggen);
