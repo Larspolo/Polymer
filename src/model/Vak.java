@@ -6,8 +6,6 @@ public class Vak implements Serializable {
 	private String vakCode;
 	private String vakNaam;
 	
-	
-	
 	public Vak(String vC, String vN) {
 		vakCode = vC;
 		vakNaam = vN;

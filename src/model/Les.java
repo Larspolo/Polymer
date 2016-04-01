@@ -11,7 +11,7 @@ public class Les implements Serializable {
 	private String lokaal;
 	private ArrayList<Student> afwezigen;
 	
-	public Les(LocalDateTime bt, LocalDateTime et, String l) {
+	public Les(LocalDateTime bt, LocalDateTime et, String l){
 		begintijd = bt;
 		eindtijd = et;
 		lokaal = l;

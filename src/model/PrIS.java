@@ -132,6 +132,19 @@ public class PrIS {
 		return resultaat;
 	}
 	
+	public Les getLes(String les) {
+		Les resultaat = null;
+		
+		for (Les l : deLessen) {
+			if (l.toString() == les) {
+				resultaat = l;
+				break;
+			}
+		}
+		
+		return resultaat;
+	}
+	
 	public ArrayList<Student> getStudentenVanKlas(String klasCode) {
 		ArrayList<Student> resultaat = new ArrayList<Student>();
 		
