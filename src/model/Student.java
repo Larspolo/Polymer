@@ -67,6 +67,10 @@ public class Student implements Serializable {
 		ziek = !ziek;
 	}
 	
+	public boolean getZiek() {
+		return ziek;
+	}
+	
 	public boolean equals(Object obj) {
 		boolean r = true;
 		
