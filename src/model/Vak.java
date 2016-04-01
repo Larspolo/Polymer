@@ -19,6 +19,10 @@ public class Vak implements Serializable {
 		return vakCode;
 	}
 	
+	public boolean equals(Object obj) {		
+		return ((Vak) obj).vakCode == vakCode;
+	}
+	
 	public String toString() {
 		return vakNaam;
 	}
