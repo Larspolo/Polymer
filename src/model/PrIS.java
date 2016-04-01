@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
 	private ArrayList<Student> deStudenten;
-	private int session = 0;
 	private ArrayList<Klas> deKlassen;
 	private ArrayList<Les> deLessen;
+	private int session = 0;
 	
 	/**
 	 * De constructor maakt een set met standaard-data aan. Deze data
@@ -79,7 +79,7 @@ public class PrIS {
 		deStudenten.get(1).wijzigWachtwoord("Pa$$" + (int)(Math.random()*1000));
 		deStudenten.get(0).setMijnKlas(deKlassen.get(0));
 		
-		DB.writeFile(deStudenten,"students.csv");
+		DB.writeFile(deStudenten,"studenten.csv");
 		DB.writeFile(deDocenten,"docenten.csv");
 		
 	}
@@ -155,6 +155,14 @@ public class PrIS {
 		}
 		
 		return resultaat;
+	}
+	
+	public void loguit() throws IOException {
+
+		DB.writeFile(deKlassen,"klassen.csv");
+		DB.writeFile(deLessen,"lessen.csv");
+		DB.writeFile(deStudenten,"studenten.csv");
+		DB.writeFile(deDocenten,"docenten.csv");
 	}
 	
 	public String toString() {
