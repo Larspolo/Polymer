@@ -136,7 +136,7 @@ public class PrIS {
 		Les resultaat = null;
 		
 		for (Les l : deLessen) {
-			if (l.toString() == les) {
+			if (l.toString().equals(les)) {
 				resultaat = l;
 				break;
 			}

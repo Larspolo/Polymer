@@ -9,7 +9,7 @@ public class Les implements Serializable {
 	private LocalDateTime begintijd;
 	private LocalDateTime eindtijd;
 	private String lokaal;
-	private ArrayList<Student> afwezigen;
+	private ArrayList<Student> afwezigen = new ArrayList<Student>();
 	
 	public Les(LocalDateTime bt, LocalDateTime et, String l){
 		begintijd = bt;
