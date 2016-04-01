@@ -60,7 +60,9 @@ public class Student implements Serializable {
 	}
 	
 	public void removeVak(Vak v) {
-		mijnVakken.remove(v);
+		if(mijnVakken.contains(v)) {
+			mijnVakken.remove(v);
+		}
 	}
 	
 	public void ziekMelden() {

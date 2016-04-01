@@ -16,8 +16,18 @@ public class Klas implements Serializable {
 		return klasCode;
 	}
 	
+	public ArrayList<Les> getMijnLessen() {
+		return mijnLessen;
+	}
+	
 	public void addLes(Les les) {
 		mijnLessen.add(les);
+	}
+	
+	public void removeLes(Les les) {
+		if(mijnLessen.contains(les)) {
+			mijnLessen.remove(les);
+		}
 	}
 	
 	public String toString() {

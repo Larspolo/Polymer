@@ -3,8 +3,10 @@ package model;
 import java.io.Serializable;
 
 public class Vak implements Serializable {
-	public String vakCode;
-	public String vakNaam;
+	private String vakCode;
+	private String vakNaam;
+	
+	
 	
 	public Vak(String vC, String vN) {
 		vakCode = vC;

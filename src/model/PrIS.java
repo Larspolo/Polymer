@@ -44,8 +44,8 @@ public class PrIS {
 		deLessen = new ArrayList<Les>();
 		
 		
-		Les l1 = new Les(LocalDateTime.now(), LocalDateTime.now().plusHours(1));
-		Les l2 = new Les(LocalDateTime.now().plusHours(2), LocalDateTime.now().plusHours(3));
+		Les l1 = new Les(LocalDateTime.now(), LocalDateTime.now().plusHours(1), "D08:02");
+		Les l2 = new Les(LocalDateTime.now().plusHours(2), LocalDateTime.now().plusHours(3), "D06:12");
 		deLessen.add(l1);
 		deLessen.add(l2);
 		DB.writeFile(deLessen,"lessen.csv");
