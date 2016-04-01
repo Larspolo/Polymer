@@ -59,7 +59,8 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 		Label lbMelding = new Label("");
 
 		ComboBox cbLessen = new ComboBox();
-		
+
+		Button btnZiekMelden = new Button("Ziek melden");
 		
 		Button btnInloggen = new Button("Inloggen");
 		btnInloggen.setOnAction(new EventHandler<ActionEvent>() {
@@ -80,6 +81,13 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 
 							cbLessen.getItems().add(l);
 						}
+						System.out.println(pris.getStudent(Integer.parseInt(gebruiker)).getZiek());
+						if(pris.getStudent(Integer.parseInt(gebruiker)).getZiek()){
+							btnZiekMelden.setText("Beter melden");
+						}
+						else {
+							btnZiekMelden.setText("Ziek melden");
+						}
 						
 					} else {
 						lbMelding.setText("verkeerde gegevens!");
@@ -99,11 +107,28 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 		rootInloggen.setVgap(10.0);
 
 		/* Scene menu */
+		btnZiekMelden.setPrefWidth(330.0);
+		btnZiekMelden.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
 
+				pris.getStudent(Integer.parseInt(gebruiker)).ziekMelden();
+
+				System.out.println(pris.getStudent(Integer.parseInt(gebruiker)).getZiek());
+				
+				if(pris.getStudent(Integer.parseInt(gebruiker)).getZiek()){
+					btnZiekMelden.setText("Beter melden");
+				}
+				else {
+					btnZiekMelden.setText("Ziek melden");
+				}
+			}
+		});
+		
 		Button btnAfwezigheid = new Button("Afwezigheid");
 		btnAfwezigheid.setPrefWidth(330.0);
 		btnAfwezigheid.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
+
+	public void handle(ActionEvent event) {
 				primaryStage.setScene(afwezigheid);
 			}
 		});
@@ -132,7 +157,7 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 			}
 		});
 
-		rootMenu.getChildren().addAll(lbGebruiker, btnAfwezigheid, btnWachtwoordWijzigen, btnAfmelden);
+		rootMenu.getChildren().addAll(lbGebruiker, btnZiekMelden, btnAfwezigheid, btnWachtwoordWijzigen, btnAfmelden);
 		rootMenu.setVgap(10.0);
 
 		/* Afwezig melden */
@@ -235,3 +260,4 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 		Application.launch(args);
 	}
 }
+
