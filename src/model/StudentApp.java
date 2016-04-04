@@ -69,26 +69,26 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 				if (tfStudentnr.getText().isEmpty() || tfWachtwoord.getText().isEmpty()) {
 					lbMelding.setText("Vul alle gegevens in!");
 				} else {
-					if (pris.login(Integer.parseInt(tfStudentnr.getText()), tfWachtwoord.getText()) == "student") {
-
-						gebruiker = tfStudentnr.getText();
-						lbMelding.setText("");
-						tfStudentnr.setText("");
-						tfWachtwoord.setText("");
-						primaryStage.setScene(menu);
-												
-						for(Les l : pris.getStudent(Integer.parseInt(gebruiker)).getMijnKlas().getMijnLessen()) {
-
-							cbLessen.getItems().add(l);
+					if(tfStudentnr.getText().matches("[0-9]+")) {
+						if (pris.login(Integer.parseInt(tfStudentnr.getText()), tfWachtwoord.getText()) == "student") {
+							gebruiker = tfStudentnr.getText();
+							lbMelding.setText("");
+							tfStudentnr.setText("");
+							tfWachtwoord.setText("");
+							primaryStage.setScene(menu);
+													
+							for(Les l : pris.getStudent(Integer.parseInt(gebruiker)).getMijnKlas().getMijnLessen()) {
+	
+								cbLessen.getItems().add(l);
+							}
+							System.out.println(pris.getStudent(Integer.parseInt(gebruiker)).getZiek());
+							if(pris.getStudent(Integer.parseInt(gebruiker)).getZiek()){
+								btnZiekMelden.setText("Beter melden");
+							}
+							else {
+								btnZiekMelden.setText("Ziek melden");
+							}
 						}
-						System.out.println(pris.getStudent(Integer.parseInt(gebruiker)).getZiek());
-						if(pris.getStudent(Integer.parseInt(gebruiker)).getZiek()){
-							btnZiekMelden.setText("Beter melden");
-						}
-						else {
-							btnZiekMelden.setText("Ziek melden");
-						}
-						
 					} else {
 						lbMelding.setText("verkeerde gegevens!");
 					}
@@ -152,6 +152,8 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				int itemCount = cbLessen.getItems().size();
+			        cbLessen.getItems().remove(0, itemCount);
 				gebruiker = "";
 				primaryStage.setScene(inloggen);
 			}

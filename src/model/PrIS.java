@@ -42,45 +42,47 @@ public class PrIS {
 		deStudenten = new ArrayList<Student>();
 		deKlassen = new ArrayList<Klas>();
 		deLessen = new ArrayList<Les>();
-		
-		
-		Les l1 = new Les(LocalDateTime.now(), LocalDateTime.now().plusHours(1), "D08:02");
-		Les l2 = new Les(LocalDateTime.now().plusHours(2), LocalDateTime.now().plusHours(3), "D06:12");
-		deLessen.add(l1);
-		deLessen.add(l2);
-		DB.writeFile(deLessen,"lessen.csv");
-
-		Klas k1 = new Klas("SIE-V1D");
-		k1.addLes(l1);
-		k1.addLes(l2);
-		deKlassen.add(k1);
-		DB.writeFile(deKlassen,"klassen.csv");
-		
-		Docent d1 = new Docent("Wim", "geheim");
-		Docent d2 = new Docent("Hans", "geheim");
-		Docent d3 = new Docent("Jan", "geheim");
-		deDocenten.add(d1);
-		deDocenten.add(d2);
-		deDocenten.add(d3);
-		d1.voegVakToe(new Vak("TCIF-V1AUI-15", "Analyse en User Interfaces"));
-		d1.voegVakToe(new Vak("TICT-V1GP-15", "Group Project"));
-		d1.voegVakToe(new Vak("TICT-V1OODC-15", "Object Oriented Design & Construction"));
-		DB.writeFile(deDocenten,"docenten.csv");
-		
-		Student s1 = new Student(1677500, "Lars", "van", "Hijfte", "pro?");
-		Student s2 = new Student(1234567, "Jari", "van den", "Brink", "jup!");
-		deStudenten.add(s1);
-		deStudenten.add(s2);
-		DB.writeFile(deStudenten,"studenten.csv");
-
+//		
+//		
+//		Les l1 = new Les(LocalDateTime.now(), LocalDateTime.now().plusHours(1), "D08:02");
+//		Les l2 = new Les(LocalDateTime.now().plusHours(2), LocalDateTime.now().plusHours(3), "D06:12");
+//		deLessen.add(l1);
+//		deLessen.add(l2);
+//		DB.writeFile(deLessen,"lessen.csv");
+//
+//		Klas k1 = new Klas("SIE-V1D");
+//		k1.addLes(l1);
+//		k1.addLes(l2);
+//		deKlassen.add(k1);
+//		DB.writeFile(deKlassen,"klassen.csv");
+//		
+//		Docent d1 = new Docent("Wim", "geheim");
+//		Docent d2 = new Docent("Hans", "geheim");
+//		Docent d3 = new Docent("Jan", "geheim");
+//		deDocenten.add(d1);
+//		deDocenten.add(d2);
+//		deDocenten.add(d3);
+//		d1.voegVakToe(new Vak("TCIF-V1AUI-15", "Analyse en User Interfaces"));
+//		d1.voegVakToe(new Vak("TICT-V1GP-15", "Group Project"));
+//		d1.voegVakToe(new Vak("TICT-V1OODC-15", "Object Oriented Design & Construction"));
+//		DB.writeFile(deDocenten,"docenten.csv");
+//		
+//		Student s1 = new Student(1677500, "Lars", "van", "Hijfte", "pro?");
+//		Student s2 = new Student(1234567, "Jari", "van den", "Brink", "jup!");
+//		deStudenten.add(s1);
+//		deStudenten.add(s2);
+//		DB.writeFile(deStudenten,"studenten.csv");
+//
 		deDocenten = DB.loadFile("docenten.csv");
 		deStudenten = DB.loadFile("studenten.csv");
-		
-		deStudenten.get(1).wijzigWachtwoord("Pa$$" + (int)(Math.random()*1000));
-		deStudenten.get(0).setMijnKlas(deKlassen.get(0));
-		
-		DB.writeFile(deStudenten,"studenten.csv");
-		DB.writeFile(deDocenten,"docenten.csv");
+		deKlassen = DB.loadFile("klassen.csv");
+		deLessen = DB.loadFile("lessen.csv");
+//		
+//		deStudenten.get(1).wijzigWachtwoord("Pa$$" + (int)(Math.random()*1000));
+//		deStudenten.get(0).setMijnKlas(deKlassen.get(0));
+//		
+//		DB.writeFile(deStudenten,"studenten.csv");
+//		DB.writeFile(deDocenten,"docenten.csv");
 		
 	}
 	
@@ -163,6 +165,8 @@ public class PrIS {
 		DB.writeFile(deLessen,"lessen.csv");
 		DB.writeFile(deStudenten,"studenten.csv");
 		DB.writeFile(deDocenten,"docenten.csv");
+		
+		System.out.println("Data geupdate!");
 	}
 	
 	public String toString() {
