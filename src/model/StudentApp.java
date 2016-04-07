@@ -215,6 +215,12 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 		TextField tfNieuwWachtwoord = new TextField();
 		tfNieuwWachtwoord.setPrefWidth(180.0);
 
+		Label lbHerhaalWachtwoord = new Label("Herhaal wachtwoord: ");
+		lbNieuwWachtwoord.setPrefWidth(140.0);
+
+		TextField tfHerhaalWachtwoord = new TextField();
+		tfHerhaalWachtwoord.setPrefWidth(180.0);
+
 		Label lbMelding2 = new Label("");
 
 		Button btnTerug2 = new Button("<-");
@@ -227,13 +233,21 @@ public class StudentApp extends Application implements EventHandler<ActionEvent>
 		Button btnOpslaan = new Button("Opslaan");
 		btnOpslaan.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) throws NumberFormatException {
-				if (tfNieuwWachtwoord.getText().equals("")) {
-					lbMelding2.setText("Voer een wachtwoord in!");
+				if (tfNieuwWachtwoord.getText().equals("") || tfHerhaalWachtwoord.getText().equals("")) {
+					lbMelding2.setText("Vul alle velden in!");
 
-				} else {	
+				} 
+				else if (tfNieuwWachtwoord.getText().equals(tfHerhaalWachtwoord.getText())) {
+					
 					pris.getStudent(Integer.parseInt(gebruiker)).wijzigWachtwoord(tfNieuwWachtwoord.getText());
 					lbMelding2.setText("Opgeslagen!");
 					tfNieuwWachtwoord.setText("");
+					tfHerhaalWachtwoord.setText("");
+					
+				}
+				else {	
+					lbMelding2.setText("Wachtwoorden komen niet overeen!");
+					
 				}
 			}
 		});
